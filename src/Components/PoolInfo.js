@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react"
-import {makeStyles, Box} from "@material-ui/core"
+import {makeStyles, Box, Button, withTheme} from "@material-ui/core"
 import {ethers} from "ethers"
 import custodianJSON from "../Contracts/custodian.json"
 import repaymentJSON from "../Contracts/repaymentPool.json"
@@ -27,14 +27,19 @@ const useStyles = makeStyles((theme)=> ({
         alignItems: "left",
         justifyContent: "left",
         gap: theme.spacing(0),
+        paddingTop:12,
     },
     terminal:{
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         paddingBottom: 7,
-
-    }
+    },
+    buttonColor:{
+        backgroundColor: "#3949ab",
+        color: '#e0e0e0',
+        
+    },
 
 }))
 
@@ -48,6 +53,7 @@ const PoolInfo = () => {
     const [investedBalance, setInvestedBalance] = useState("")
     const [userBalance, setUserBalance] = useState ("")
     const [transited, setTransited] = useState ("")
+    const [render, setRender]= useState(false)
 
     const classes = useStyles()
 
@@ -73,18 +79,29 @@ const PoolInfo = () => {
 
     }
     
-
+    let handleClick = () => {
+        // force a re-render
+        if(render=false){
+            setRender(true)
+        }else{
+            setRender(false)
+        }
+        
+        console.log(render);
+        
+      };
     
     useEffect(()=>{
         getBalances()
 
-    }, [])
+    })
     
 
     return(
         <Box width={"45%"}>
         
             <h3 className={classes.terminal}>Terminal 1</h3>
+            <Button onClick={()=> setRender(!render)} size="small" style={{ height: "30px", width: "80px" }} className={classes.buttonColor}> Refresh</Button>
             <div className={classes.container}>
                 <Box border={2} width={"50%"} borderColor={"white"}>
                     <h4 className={classes.padding}>Loading Dock: {defiBalance} USDC</h4>

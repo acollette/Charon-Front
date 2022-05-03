@@ -1,9 +1,10 @@
-import React from 'react'
+import React, {useEffect, useRef} from 'react'
 import Header from "../src/Components/Header"
 import Info from "../src/Components/Info"
 import {makeStyles} from "@material-ui/core"
 import char from "../src/Assets/char.png"
 import DepositWithdraw from './Components/DepositWithdraw'
+import {ethers} from "ethers"
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
   }))
 
   const classes = useStyles()
+
 
   return (
     <div className="container" style ={{height: "100vh"}}>
